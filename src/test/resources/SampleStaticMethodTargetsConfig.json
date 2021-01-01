@@ -1,0 +1,8 @@
+[{
+  "clazz": "org.apache.commons.lang3.ArrayUtils",
+  "method": "contains",
+  "methodArgs": [
+    ["Mumbai", "Paris", "Tokyo"], "Helsinki"
+  ],
+  "methodArgsType": ["[Ljava.lang.Object;", "java.lang.Object"]
+}]

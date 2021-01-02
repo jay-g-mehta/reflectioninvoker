@@ -1,16 +1,21 @@
 package reflectioninvoker;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import org.junit.jupiter.api.Test;
 import reflectioninvoker.executor.SerialSynchronousReflectionInvokerExecutor;
 import reflectioninvoker.targets.BuildTargetsProvider;
+import reflectioninvoker.targets.ConfigTargetsProvider;
 import reflectioninvoker.targets.Target;
 import reflectioninvoker.targets.TargetsProvider;
+import reflectioninvoker.targets.config.FileSystemConfigReader;
+import reflectioninvoker.targets.config.StaticMethodTargetsJsonTranslator;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static reflectioninvoker.testutils.TestResourceReader.getTestResourceRootAbsolutePath;
 
 
 public class StaticMethodReflectionInvokerIntegrationTest {
@@ -26,6 +31,23 @@ public class StaticMethodReflectionInvokerIntegrationTest {
 
         Object actual = staticMethodReflectionInvoker.invoke(target);
         assertFalse((Boolean) actual);
+    }
+
+    @Test
+    public void test_should_invoke_targets_defined_using_config() {
+        String config = getTestResourceRootAbsolutePath() + "/SampleStaticMethodTargetsConfig.json";
+        ConfigTargetsProvider configTargetsProvider = new ConfigTargetsProvider(
+                new FileSystemConfigReader("UTF-8", config),
+                new StaticMethodTargetsJsonTranslator(new ObjectMapper())
+        );
+        configTargetsProvider.build();
+
+        StaticMethodReflectionInvoker staticMethodReflectionInvoker = new StaticMethodReflectionInvoker();
+        SerialSynchronousReflectionInvokerExecutor serialSynchronousReflectionInvokerExecutor =
+                new SerialSynchronousReflectionInvokerExecutor(staticMethodReflectionInvoker);
+        List<Object> actual = serialSynchronousReflectionInvokerExecutor.execute(configTargetsProvider);
+
+        assertFalse((Boolean) actual.get(0));
     }
 
     @Test

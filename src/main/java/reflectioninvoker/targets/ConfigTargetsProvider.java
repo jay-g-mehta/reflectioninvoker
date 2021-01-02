@@ -11,7 +11,7 @@ import java.util.List;
  * Build list of Target using TargetsConfigReader and TargetsConfigTranslator
  */
 @RequiredArgsConstructor
-public class ConfigTargetsProvider implements TargetsProvider{
+public class ConfigTargetsProvider implements TargetsProvider {
 
     private final TargetsConfigReader targetsConfigReader;
     private final TargetsConfigTranslator targetsConfigTranslator;

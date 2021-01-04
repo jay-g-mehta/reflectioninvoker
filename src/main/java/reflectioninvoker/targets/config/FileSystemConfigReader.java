@@ -10,7 +10,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
- * Reads & returns Target saved in a config file on local file system
+ * Reads and returns Target saved in a config file on local file system
  */
 @ThreadSafe
 @Getter

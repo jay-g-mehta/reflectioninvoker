@@ -8,8 +8,8 @@ import reflectioninvoker.targets.Target;
 public interface ReflectionInvoker {
     /**
      * Using Reflection, call method on target and return response
-     * @param target
-     * @return
+     * @param target to invoke
+     * @return response from target's method invoked
      */
     Object invoke(final Target target);
 }

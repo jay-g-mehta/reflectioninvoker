@@ -10,7 +10,7 @@ import java.util.List;
  * building Targets and chaining at runtime.
  */
 @Builder
-public class BuildTargetsProvider implements TargetsProvider{
+public class BuildTargetsProvider implements TargetsProvider {
 
     @Singular
     private List<Target> targets;

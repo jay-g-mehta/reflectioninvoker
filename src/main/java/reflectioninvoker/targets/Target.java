@@ -19,5 +19,6 @@ public class Target {
     private String method;
     private List<Object> methodArgs;
     private List<String> methodArgsType;
+    // Actual class instance, null or Target type
     private Object clazzInstance;
 }

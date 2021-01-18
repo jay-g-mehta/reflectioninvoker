@@ -1,0 +1,17 @@
+[{
+  "clazz": "java.util.Date",
+  "method": "equals",
+  "methodArgsType": ["java.lang.Object"],
+  "methodArgs": [{
+    "clazz": "java.util.Date",
+    "method": "Date",
+    "methodArgs": [1610996650749],
+    "methodArgsType": ["long"]
+  }],
+  "clazzInstance":  {
+    "clazz": "java.util.Date",
+    "method": "Date",
+    "methodArgs": [1610996650750],
+    "methodArgsType": ["long"]
+  }
+}]

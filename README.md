@@ -1,8 +1,8 @@
 # RI: Reflection Invoker
 
-Simple & easy to use Java Reflection utility for invoking methods. RI heavy lifts Java Reflection generic code, data
-type translation, wraps exceptions, exposes builder and other utilities to define statically and/or dynamically what is 
-to be  invoked.
+Simple & easy to use Java Reflection utility for invoking static methods, class methods, constructors.
+ RI lifts heavy redundant Java Reflection generic code, data type translation, primitive data type handling, wraps 
+ exceptions, exposes builder and utilities to statically and/or dynamically define targets to be invoked.
 
 Reflection Invoker provides framework for extending method invoking from user configuration. Built-in support for JSON
 schema and reader. Provision for user to extend schema in JSON, YAML or other configuration language and implement its
@@ -14,7 +14,7 @@ schema and reader. Provision for user to extend schema in JSON, YAML or other co
 <dependency>
     <groupId>io.github.jay-g-mehta</groupId>
     <artifactId>reflectioninvoker</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 </dependency>
 ```
 
@@ -30,8 +30,8 @@ target.setMethodArgs(ImmutableList.of(ImmutableList.of("Mumbai", "Paris", "Tokyo
 target.setMethodArgsType(ImmutableList.of("[Ljava.lang.Object;", "java.lang.Object"));
 
 // ii. Invoke & get results
-StaticMethodReflectionInvoker staticMethodReflectionInvoker = new StaticMethodReflectionInvoker();
-Boolean actual = (Boolean) staticMethodReflectionInvoker.invoke(target);
+ReflectionInvoker invoker = new Invoker();
+Boolean actual = (Boolean) invoker.invoke(target);
 ```
 
 - Chaining Executor: Invoke multiple static methods
@@ -60,9 +60,9 @@ TargetsProvider targetsProvider = BuildTargetsProvider.builder()
         .build();
 
 // iv. Define Chain executor
-StaticMethodReflectionInvoker staticMethodReflectionInvoker = new StaticMethodReflectionInvoker();
+ReflectionInvoker invoker = new Invoker();
 SerialSynchronousReflectionInvokerExecutor serialSynchronousReflectionInvokerExecutor =
-        new SerialSynchronousReflectionInvokerExecutor(staticMethodReflectionInvoker);
+        new SerialSynchronousReflectionInvokerExecutor(invoker);
 
 // v. Invoke & get result
 List<Object> actual = serialSynchronousReflectionInvokerExecutor.execute(targetsProvider);
@@ -86,14 +86,14 @@ Invoke all methods defined in JSON configuration using generic code:
 // i. Define reader above json config
 TargetsConfigReader reader = new FileSystemConfigReader("UTF-8", "/path/to/config.json");
 // ii. Define translator to deserialize config to Target object
-TargetsConfigTranslator translator = new StaticMethodTargetsJsonTranslator(new ObjectMapper());
+TargetsConfigTranslator translator = new TargetsJsonTranslator(new ObjectMapper());
 // iii. Define and build config targets provider
 ConfigTargetsProvider configTargetsProvider = new ConfigTargetsProvider(reader, translator);
 configTargetsProvider.build();
 // iv. Define Chain executor
-StaticMethodReflectionInvoker staticMethodReflectionInvoker = new StaticMethodReflectionInvoker();
+ReflectionInvoker invoker = new Invoker();
 SerialSynchronousReflectionInvokerExecutor serialSynchronousReflectionInvokerExecutor =
-        new SerialSynchronousReflectionInvokerExecutor(staticMethodReflectionInvoker);
+        new SerialSynchronousReflectionInvokerExecutor(invoker);
 // v. Invoke & get result
 List<Object> actual = serialSynchronousReflectionInvokerExecutor.execute(configTargetsProvider);
 ```

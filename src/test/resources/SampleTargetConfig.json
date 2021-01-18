@@ -1,0 +1,12 @@
+[{
+  "clazz": "java.util.Date",
+  "method": "toString",
+  "methodArgs": [],
+  "methodArgsType": [],
+  "clazzInstance":  {
+    "clazz": "java.util.Date",
+    "method": "Date",
+    "methodArgs": [1610996650749],
+    "methodArgsType": ["long"]
+  }
+}]

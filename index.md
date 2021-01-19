@@ -1,6 +1,9 @@
 # RI: Reflection Invoker
 
+![image](https://user-images.githubusercontent.com/19273732/104975331-46636500-59af-11eb-935d-cbeb7852ed3c.png)
+
 Simple, Easy & Powerful Java Reflection utility for invoking methods.
+
 Define static methods, class methods and constructors to be invoked using Java reflection using one schema.
 
 RI lifts heavy redundant Java Reflection generic code, data type translation, primitive data type handling, wraps 

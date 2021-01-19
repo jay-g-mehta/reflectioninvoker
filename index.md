@@ -1,8 +1,10 @@
 # RI: Reflection Invoker
 
-Simple & easy to use Java Reflection utility for invoking static methods, class methods, constructors.
- RI lifts heavy redundant Java Reflection generic code, data type translation, primitive data type handling, wraps 
- exceptions, exposes builder and utilities to statically and/or dynamically define targets to be invoked.
+Simple, Easy & Powerful Java Reflection utility for invoking methods.
+Define static methods, class methods and constructors to be invoked using Java reflection using one schema.
+
+RI lifts heavy redundant Java Reflection generic code, data type translation, primitive data type handling, wraps 
+exceptions, exposes builder and utilities to statically and/or dynamically define targets to be invoked.
 
 Reflection Invoker provides framework for extending method invoking from user configuration. Built-in support for JSON
 schema and reader. Provision for user to extend schema in JSON, YAML or other configuration language and implement its
@@ -21,6 +23,7 @@ schema and reader. Provision for user to extend schema in JSON, YAML or other co
 ## Usage
 
 - Simple invoking static method
+
 ```java
 // i. Define what is to be invoked
 Target target = new Target();

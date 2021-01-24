@@ -97,4 +97,42 @@ public class InvokerIntegrationTest {
 
         assertFalse((Boolean) actual.get(0));
     }
+
+    @Test
+    public void test_should_invoke_instance_method_for_passed_class_instance() {
+        Date date = new Date(1610996650749L);
+
+        ReflectionInvoker invoker = new Invoker();
+        Target target = new Target();
+        target.setClazz("java.util.Date");
+        target.setMethod("toString");
+        target.setMethodArgs(ImmutableList.of());
+        target.setMethodArgsType(ImmutableList.of());
+        target.setClazzInstance(date);
+
+        String actual = (String) invoker.invoke(target);
+        assertEquals(date.toString(), actual);
+    }
+
+    @Test
+    public void test_should_invoke_instance_method_when_instance_is_Target_type() {
+        Date date = new Date(1610996650749L);
+
+        Target dateInstance = new Target();
+        dateInstance.setClazz("java.util.Date");
+        dateInstance.setMethod("Date");
+        dateInstance.setMethodArgs(ImmutableList.of(1610996650749L));
+        dateInstance.setMethodArgsType(ImmutableList.of("long"));
+
+        ReflectionInvoker invoker = new Invoker();
+        Target target = new Target();
+        target.setClazz("java.util.Date");
+        target.setMethod("toString");
+        target.setMethodArgs(ImmutableList.of());
+        target.setMethodArgsType(ImmutableList.of());
+        target.setClazzInstance(dateInstance);
+
+        String actual = (String) invoker.invoke(target);
+        assertEquals(date.toString(), actual);
+    }
 }

@@ -1,8 +1,13 @@
 # RI: Reflection Invoker
 
-Simple & easy to use Java Reflection utility for invoking static methods, class methods, constructors.
- RI lifts heavy redundant Java Reflection generic code, data type translation, primitive data type handling, wraps 
- exceptions, exposes builder and utilities to statically and/or dynamically define targets to be invoked.
+![image](https://user-images.githubusercontent.com/19273732/104975331-46636500-59af-11eb-935d-cbeb7852ed3c.png)
+
+Simple, Easy & Powerful Java Reflection utility for invoking methods.
+
+Invoke Java static methods, class methods and constructors using Java reflection at runtime using one schema.
+
+RI lifts heavy redundant Java Reflection generic code, data type translation, primitive data type handling, wraps 
+exceptions, exposes builder and utilities to statically and/or dynamically define targets to be invoked.
 
 Reflection Invoker provides framework for extending method invoking from user configuration. Built-in support for JSON
 schema and reader. Provision for user to extend schema in JSON, YAML or other configuration language and implement its
@@ -20,7 +25,8 @@ schema and reader. Provision for user to extend schema in JSON, YAML or other co
 
 ## Usage
 
-- Simple invoking static method
+### How to invoke static method using Java Reflection Invoker
+
 ```java
 // i. Define what is to be invoked
 Target target = new Target();
@@ -33,8 +39,58 @@ target.setMethodArgsType(ImmutableList.of("[Ljava.lang.Object;", "java.lang.Obje
 ReflectionInvoker invoker = new Invoker();
 Boolean actual = (Boolean) invoker.invoke(target);
 ```
+### How to invoke a constructor using Java Reflection Invoker
 
-- Chaining Executor: Invoke multiple static methods
+Below example shows how to constructor Date object by calling constructor using Java Reflection Invoker
+
+```java
+Target target = new Target();
+target.setClazz("java.util.Date");
+target.setMethod("Date");
+target.setMethodArgs(ImmutableList.of(1610996650749L));
+target.setMethodArgsType(ImmutableList.of("long"));
+
+ReflectionInvoker invoker = new Invoker();
+Date date = (Date) invoker.invoke(target);
+```
+
+### How to invoke class method using Java Reflection Invoker
+
+```java
+Target target = new Target();
+target.setClazz("java.util.Date");
+target.setMethod("toString");
+target.setMethodArgs(ImmutableList.of());
+target.setMethodArgsType(ImmutableList.of());
+target.setClazzInstance(date);
+
+ReflectionInvoker invoker = new Invoker();
+String dateToString = (String) invoker.invoke(target);
+```
+
+Class instance can be passed as Target type as well. RI will take care of creating class instance before invoking
+method
+
+```java
+Target dateInstance = new Target();
+dateInstance.setClazz("java.util.Date");
+dateInstance.setMethod("Date");
+dateInstance.setMethodArgs(ImmutableList.of(1610996650749L));
+dateInstance.setMethodArgsType(ImmutableList.of("long"));
+
+Target target = new Target();
+target.setClazz("java.util.Date");
+target.setMethod("toString");
+target.setMethodArgs(ImmutableList.of());
+target.setMethodArgsType(ImmutableList.of());
+target.setClazzInstance(dateInstance);
+
+ReflectionInvoker invoker = new Invoker();
+String dateToString = invoker.invoke(target);
+```
+
+
+### Chaining Executor: How to invoke multiple methods using Java Reflection Invoker
 
 ```java
 
@@ -68,7 +124,7 @@ SerialSynchronousReflectionInvokerExecutor serialSynchronousReflectionInvokerExe
 List<Object> actual = serialSynchronousReflectionInvokerExecutor.execute(targetsProvider);
 ```
 
-- Define Targets using JSON configuration
+### How to invoke methods using Java Reflection Invoker represented by JSON configuration
 
 Define methods to invoke by reflection via built-in JSON configuration schema:
 ```json
